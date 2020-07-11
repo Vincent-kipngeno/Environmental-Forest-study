@@ -64,4 +64,13 @@ public class Animal {
                   .executeAndFetch(Animal.class);
         }
     }
+
+    public Animal findById () {
+        String sql = "SELECT * FROM animals WHERE id = :id;";
+        try (Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("id", this.id)
+                    .executeAndFetchFirst(Animal.class);
+        }
+    }
 }

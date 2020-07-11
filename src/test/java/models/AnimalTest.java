@@ -52,6 +52,14 @@ public class AnimalTest {
         assertEquals(true, Animal.all().get(1).equals(secondAnimal));
     }
 
+    @Test
+    public void findById_correctInstanceOfAnimalIsReturnedById() {
+        Animal newAnimal = new Animal("Lion");
+        newAnimal.save();
+        Animal savedAnimal = newAnimal.findById();
+        assertEquals(newAnimal, savedAnimal);
+    }
+
     private Animal setNewAnimal(){
         return new Animal("Lion");
     }
