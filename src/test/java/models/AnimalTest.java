@@ -56,8 +56,18 @@ public class AnimalTest {
     public void findById_correctInstanceOfAnimalIsReturnedById() {
         Animal newAnimal = new Animal("Lion");
         newAnimal.save();
-        Animal savedAnimal = newAnimal.findById();
+        Animal savedAnimal = Animal.findById(newAnimal.getId());
         assertEquals(newAnimal, savedAnimal);
+    }
+
+    @Test
+    public void update_animalInstanceIsUpdatedCorrectly() {
+        Animal newAnimal = setNewAnimal();
+        String originalName = newAnimal.getName();
+        newAnimal.save();
+        newAnimal.update("cheetah");
+        Animal updatedAnimal = Animal.findById(newAnimal.getId());
+        assertNotEquals(originalName, updatedAnimal.getName());
     }
 
     private Animal setNewAnimal(){

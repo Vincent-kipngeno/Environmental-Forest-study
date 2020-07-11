@@ -1,6 +1,7 @@
 package models;
 
 import org.sql2o.Connection;
+import org.sql2o.Sql2oException;
 
 import java.util.List;
 import java.util.Objects;
@@ -65,12 +66,24 @@ public class Animal {
         }
     }
 
-    public Animal findById () {
+    public static Animal findById (int id) {
         String sql = "SELECT * FROM animals WHERE id = :id;";
         try (Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
-                    .addParameter("id", this.id)
+                    .addParameter("id", id)
                     .executeAndFetchFirst(Animal.class);
+        }
+    }
+
+    public  void update( String name){
+        String sql = "UPDATE animals SET name = :name WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("name", name)
+                    .addParameter("id", this.id)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
         }
     }
 }
