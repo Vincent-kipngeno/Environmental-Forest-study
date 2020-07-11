@@ -8,6 +8,9 @@ public class AnimalTest {
 
     @Test
     public void getId_instantiatesCorrectlyWithId() {
+        Animal newAnimal = setNewAnimal();
+        newAnimal.setId(1);
+        assertEquals(1, newAnimal.getId());
     }
 
     @Test

@@ -21,4 +21,7 @@ public class Animal {
         return type;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 }
