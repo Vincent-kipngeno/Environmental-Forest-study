@@ -1,17 +1,14 @@
 package models;
 
+import dbRule.DatabaseRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class AnimalTest {
-
-    @Test
-    public void getId_instantiatesCorrectlyWithId() {
-        Animal newAnimal = setNewAnimal();
-        newAnimal.setId(1);
-        assertEquals(1, newAnimal.getId());
-    }
+    @Rule
+    public DatabaseRule database = new DatabaseRule();
 
     @Test
     public void getName_instantiatesCorrectlyWithId() {
@@ -25,7 +22,14 @@ public class AnimalTest {
         assertEquals("Animal", newAnimal.getType());
     }
 
-    public Animal setNewAnimal(){
+    @Test
+    public void save_animalsAreSavedCorrectlyInDatabase() {
+        Animal newAnimal = new Animal("Lion");
+        newAnimal.save();
+        assertEquals(true, Animal.all().get(0).equals(newAnimal));
+    }
+
+    private Animal setNewAnimal(){
         return new Animal("Lion");
     }
 }
