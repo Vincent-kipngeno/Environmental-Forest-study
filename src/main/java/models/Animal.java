@@ -86,4 +86,26 @@ public class Animal {
             System.out.println(ex);
         }
     }
+
+    public static void clearAll() {
+        String sql = "DELETE FROM animals WHERE type = :type;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("type", DATABASE_TYPE)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
+
+    public static void deleteById(int id) {
+        String sql = "DELETE FROM animals WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
 }

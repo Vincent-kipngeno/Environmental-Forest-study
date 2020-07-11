@@ -70,6 +70,25 @@ public class AnimalTest {
         assertNotEquals(originalName, updatedAnimal.getName());
     }
 
+    @Test
+    public void clearAll_nothingReturnsFromClearedable() {
+      Animal newAnimal = setNewAnimal();
+      newAnimal.save();
+      Animal.clearAll();
+      assertEquals(0, Animal.all().size());
+    }
+
+    @Test
+    public void deleteById_animalInstanceDeletedCorrectlyById() {
+        Animal firstAnimal = setNewAnimal();
+        firstAnimal.save();
+        Animal secondAnimal = new Animal("leopard");
+        secondAnimal.save();
+        Animal.deleteById(firstAnimal.getId());
+        assertEquals(1, Animal.all().size());
+        assertTrue(Animal.all().contains(secondAnimal));
+    }
+
     private Animal setNewAnimal(){
         return new Animal("Lion");
     }
