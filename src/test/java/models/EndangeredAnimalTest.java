@@ -27,6 +27,13 @@ public class EndangeredAnimalTest {
         assertEquals("old", firstEndangeredAnimal.getAge());
     }
 
+    @Test
+    public void equal_endangeredAnimalsWithSameNameHealthAndAge() {
+        EndangeredAnimal  firstEndangeredAnimal = setNewEndangeredAnimal();
+        EndangeredAnimal  secondEndangeredAnimal = setNewEndangeredAnimal();
+        assertTrue( firstEndangeredAnimal.equals(secondEndangeredAnimal));
+    }
+
     private EndangeredAnimal setNewEndangeredAnimal() {
         return new EndangeredAnimal("Rhino", "okay", "old");
     }
