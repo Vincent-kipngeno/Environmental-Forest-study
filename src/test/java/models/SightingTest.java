@@ -46,7 +46,7 @@ public class SightingTest {
     public void save_sightingIsSavedCorrectlyOnEntry() {
         Sighting  firstSighting = setNewSighting();
         firstSighting.save();
-        assertEquals(true, Sighting.all().get(0).equals(firstSighting));
+        assertTrue(Sighting.all().get(0).equals(firstSighting));
     }
 
     @Test
@@ -55,6 +55,16 @@ public class SightingTest {
         firstSighting.save();
         Sighting savedSighting = Sighting.all().get(0);
         assertEquals(savedSighting.getId(), firstSighting.getId());
+    }
+
+    @Test
+    public void all_allSavedSightingsReturnedCorrectly() {
+        Sighting  firstSighting = setNewSighting();
+        firstSighting.save();
+        Sighting  secondSighting = new Sighting("Zone B", "Dan", 1);
+        secondSighting.save();
+        assertEquals(true, Sighting.all().get(0).equals(firstSighting));
+        assertEquals(true, Sighting.all().get(1).equals(secondSighting));
     }
 
     private Sighting setNewSighting(){

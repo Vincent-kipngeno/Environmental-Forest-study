@@ -4,6 +4,7 @@ import org.sql2o.Connection;
 import org.sql2o.Sql2oException;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 public class Sighting {
@@ -54,16 +55,22 @@ public class Sighting {
     }
 
     public void save() {
-        String sql = "INSERT INTO sightings (location, ranger_name, animal_id) VALUES (:location, :ranger_name, :animal_id);";
         try(Connection con = DB.sql2o.open()) {
-            this.id = (int) con.createQuery(sql,true)
-                    .addParameter("location", this.getLocation())
-                    .addParameter("ranger_name", this.getRangerName())
-                    .addParameter("animal_id", this.getAnimalId())
+            String sql = "INSERT INTO sightings (location, rangerName, animalId, createdAt) VALUES (:location, :rangerName, :animalId, now());";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("location", this.location)
+                    .addParameter("rangerName", this.rangerName)
+                    .addParameter("animalId", this.animalId)
                     .executeUpdate()
                     .getKey();
-        }catch (Sql2oException ex) {
-            System.out.println(ex);
+        }
+    }
+
+    public static List<Sighting> all() {
+        String sql = "SELECT * FROM sightings;";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .executeAndFetch(Sighting.class);
         }
     }
 }
