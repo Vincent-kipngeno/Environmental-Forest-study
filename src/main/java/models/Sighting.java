@@ -9,8 +9,7 @@ public class Sighting {
     private int animalId;
     private Timestamp createdAt;
 
-    public Sighting(int id, String location, String rangerName, int animalId) {
-        this.id = id;
+    public Sighting( String location, String rangerName, int animalId) {
         this.location = location;
         this.rangerName = rangerName;
         this.animalId = animalId;
