@@ -46,10 +46,10 @@ public class EndangeredAnimal extends Animal{
         String sql = "INSERT INTO animals (type, name, health, age) VALUES (:type, :name, :health, :age);";
         try(Connection con = DB.sql2o.open()) {
            this.id = (int) con.createQuery(sql,true)
-                    .addParameter("name", this.name)
-                    .addParameter("health", this.health)
-                    .addParameter("age", this.age)
-                    .addParameter("type", this.type)
+                    .addParameter("name", this.getName())
+                    .addParameter("health", this.getHealth())
+                    .addParameter("age", this.getAge())
+                    .addParameter("type", this.getType())
                     .executeUpdate()
                     .getKey();
         }catch (Sql2oException ex) {
@@ -84,6 +84,20 @@ public class EndangeredAnimal extends Animal{
                     .addParameter("type", DATABASE_TYPE)
                     .executeUpdate();
         }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
+
+    public void update (String name, String health, String age){
+        String sql = "UPDATE animals SET (name, health, age) = (:name, :health, :age) WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("name", name)
+                    .addParameter("health", health)
+                    .addParameter("age", age)
+                    .addParameter("id", this.getId())
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
             System.out.println(ex);
         }
     }

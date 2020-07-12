@@ -97,6 +97,14 @@ public class EndangeredAnimalTest {
         assertTrue(EndangeredAnimal.allEndangered().contains(secondEndangeredAnimal));
     }
 
+    @Test
+    public void update_endangeredAnimalInstanceIsUpdatedCorrectly() {
+        EndangeredAnimal newEndangeredAnimal = setNewEndangeredAnimal();
+        newEndangeredAnimal.save();
+        newEndangeredAnimal.update("cheetah", "okay", "old");
+        EndangeredAnimal updatedEndangeredAnimal = EndangeredAnimal.findById(newEndangeredAnimal.getId());
+        assertEquals(false, newEndangeredAnimal.equals(updatedEndangeredAnimal));
+    }
     private EndangeredAnimal setNewEndangeredAnimal() {
         return new EndangeredAnimal("Rhino", "okay", "old");
     }
