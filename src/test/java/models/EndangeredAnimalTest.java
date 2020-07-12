@@ -105,6 +105,18 @@ public class EndangeredAnimalTest {
         EndangeredAnimal updatedEndangeredAnimal = EndangeredAnimal.findById(newEndangeredAnimal.getId());
         assertEquals(false, newEndangeredAnimal.equals(updatedEndangeredAnimal));
     }
+    @Test
+    public  void findSightings_sightingsRelatedToAnimalInstanceCanBeFound() {
+        Animal firstAnimal = setNewEndangeredAnimal();
+        firstAnimal.save();
+        Sighting firstSighting = new Sighting("Zone A", "Kevin", firstAnimal.getId());
+        firstSighting.save();
+        Sighting secondSighting = new Sighting("Zone B", "Nane", firstAnimal.getId());
+        secondSighting.save();
+        assertEquals(2, firstAnimal.findSightings().size());
+        assertTrue(firstAnimal.findSightings().contains(firstSighting));
+        assertTrue(firstAnimal.findSightings().contains(secondSighting));
+    }
     private EndangeredAnimal setNewEndangeredAnimal() {
         return new EndangeredAnimal("Rhino", "okay", "old");
     }

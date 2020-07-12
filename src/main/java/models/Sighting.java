@@ -77,12 +77,13 @@ public class Sighting {
     }
 
     public static void update(int id, String location, String rangerName, int animalId) {
-        String sql = "UPDATE sightings SET (location, rangerName, animalId) = (:location, :rangerName, :animalId);";
+        String sql = "UPDATE sightings SET (location, rangerName, animalId) = (:location, :rangerName, :animalId) WHERE id=:id;";
         try(Connection con = DB.sql2o.open()) {
             con.createQuery(sql)
                     .addParameter("location",location)
                     .addParameter("rangerName", rangerName)
                     .addParameter("animalId", animalId)
+                    .addParameter("id", id)
                     .executeUpdate();
         } catch (Sql2oException ex) {
             System.out.println(ex);

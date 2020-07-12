@@ -83,7 +83,7 @@ public class SightingTest {
     public void update_sightingInstanceIsUpdatedCorrectly() {
         Sighting newSighting = setNewSighting();
         newSighting.save();
-        newSighting.update( newSighting.getId(), "Zone B", "Dan", 1);
+        Sighting.update( newSighting.getId(), "Zone B", "Dan", 1);
         Sighting updatedSighting = Sighting.findById(newSighting.getId());
         assertEquals(false, newSighting.equals(updatedSighting));
     }

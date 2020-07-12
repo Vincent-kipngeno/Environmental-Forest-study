@@ -111,4 +111,13 @@ public class Animal {
             System.out.println(ex);
         }
     }
+
+    public List<Sighting> findSightings() {
+        String sql = "SELECT * FROM sightings WHERE animalId = :animalId;";
+        try (Connection con = DB.sql2o.open()){
+            return con.createQuery(sql)
+                    .addParameter("animalId", this.id)
+                    .executeAndFetch(Sighting.class);
+        }
+    }
 }
