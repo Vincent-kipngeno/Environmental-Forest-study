@@ -16,6 +16,11 @@ public class EndangeredAnimalTest {
     }
 
     @Test
+    public void getName_instantiatesCorrectlyWithId() {
+        Animal newEndangeredAnimal = setNewEndangeredAnimal();
+        assertEquals("Rhino", newEndangeredAnimal.getName());
+    }
+    @Test
     public void getHealth_newEndangeredAnimalInstantiatesCorrectlyWithAge() {
         EndangeredAnimal  firstEndangeredAnimal = setNewEndangeredAnimal();
         assertEquals("okay", firstEndangeredAnimal.getHealth());
@@ -71,6 +76,25 @@ public class EndangeredAnimalTest {
         firstEndangeredAnimal.save();
         EndangeredAnimal savedEndangeredAnimal = EndangeredAnimal.findById(firstEndangeredAnimal.getId());
         assertEquals(true, firstEndangeredAnimal.equals(savedEndangeredAnimal));
+    }
+
+    @Test
+    public void clearAll_nothingReturnsFromClearedTable() {
+        EndangeredAnimal newEndangeredAnimal = setNewEndangeredAnimal();
+        newEndangeredAnimal.save();
+        EndangeredAnimal.clearAll();
+        assertEquals(0, EndangeredAnimal.allEndangered().size());
+    }
+
+    @Test
+    public void deleteById_animalInstanceDeletedCorrectlyById() {
+        EndangeredAnimal firstEndangeredAnimal = setNewEndangeredAnimal();
+        firstEndangeredAnimal.save();
+        EndangeredAnimal secondEndangeredAnimal = new EndangeredAnimal("leopard", "okay", "young");
+        secondEndangeredAnimal.save();
+        EndangeredAnimal.deleteById(firstEndangeredAnimal.getId());
+        assertEquals(1, EndangeredAnimal.allEndangered().size());
+        assertTrue(EndangeredAnimal.allEndangered().contains(secondEndangeredAnimal));
     }
 
     private EndangeredAnimal setNewEndangeredAnimal() {

@@ -76,4 +76,15 @@ public class EndangeredAnimal extends Animal{
                     .executeAndFetchFirst(EndangeredAnimal.class);
         }
     }
+
+    public static void clearAll() {
+        String sql = "DELETE FROM animals WHERE type = :type;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("type", DATABASE_TYPE)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
 }

@@ -43,6 +43,14 @@ public class AnimalTest {
     }
 
     @Test
+    public void save_assignsIdToEndangeredAnimal() {
+        Animal  firstAnimal = setNewAnimal();
+        firstAnimal.save();
+        Animal savedAnimal = Animal.all().get(0);
+        assertEquals(savedAnimal.getId(), firstAnimal.getId());
+    }
+
+    @Test
     public void all_returnsAllInstancesOfAnimal() {
         Animal firstAnimal = setNewAnimal();
         firstAnimal.save();
@@ -71,7 +79,7 @@ public class AnimalTest {
     }
 
     @Test
-    public void clearAll_nothingReturnsFromClearedable() {
+    public void clearAll_nothingReturnsFromClearedTable() {
       Animal newAnimal = setNewAnimal();
       newAnimal.save();
       Animal.clearAll();
