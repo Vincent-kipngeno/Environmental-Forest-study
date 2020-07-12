@@ -1,0 +1,21 @@
+{{#partial 'content'}}
+
+    <div style="color:purple; font-family:Serif; text-align:center">
+        <h1> List of Sightings!</h1>
+    </div>
+    {{#if sightings}}
+        {{#each sightings }}
+            <div class="card " style="margin: 20px; background-color:#eee; text-align:center; padding-top:10px; padding-bottom:10px;">
+                <a href="/animals/{{animalId}}/sightings/{{id}}">
+                    <div class="card-body">
+                        <p style="font-family:san Serif; font-size:18px; text-align:center">{{location}}-{{rangerName}}</p>
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>No sightings yet!</p>
+    {{/if}}
+{{/partial}}
+
+{{> layout.hbs}}
