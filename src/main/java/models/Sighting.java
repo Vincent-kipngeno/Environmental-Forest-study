@@ -97,4 +97,25 @@ public class Sighting {
                     .executeAndFetchFirst(Sighting.class);
         }
     }
+
+    public static void clearAll() {
+        String sql = "DELETE FROM sightings;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
+
+    public static void deleteById(int id) {
+        String sql = "DELETE FROM sightings WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()){
+            con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeUpdate();
+        }catch (Sql2oException ex){
+            System.out.println(ex);
+        }
+    }
 }

@@ -96,6 +96,25 @@ public class SightingTest {
         assertEquals(true, firstSighting.equals(savedSighting));
     }
 
+    @Test
+    public void clearAll_nothingReturnsFromClearedTable() {
+        Sighting newSighting = setNewSighting();
+        newSighting.save();
+        Sighting.clearAll();
+        assertEquals(0, Sighting.all().size());
+    }
+
+    @Test
+    public void deleteById_sightingInstanceDeletedCorrectlyById() {
+        Sighting firstSighting = setNewSighting();
+        firstSighting.save();
+        Sighting secondSighting = new Sighting("Zone B", "lense", 1);
+        secondSighting.save();
+        Sighting.deleteById(firstSighting.getId());
+        assertEquals(1, Sighting.all().size());
+        assertTrue(Sighting.all().contains(secondSighting));
+    }
+
     private Sighting setNewSighting(){
         return new Sighting("Zone A", "Kevin", 1);
     }
