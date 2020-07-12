@@ -63,6 +63,8 @@ public class Sighting {
                     .addParameter("animalId", this.animalId)
                     .executeUpdate()
                     .getKey();
+        }catch (Sql2oException ex) {
+            System.out.println(ex);
         }
     }
 
@@ -71,6 +73,28 @@ public class Sighting {
         try(Connection con = DB.sql2o.open()) {
             return con.createQuery(sql)
                     .executeAndFetch(Sighting.class);
+        }
+    }
+
+    public static void update(int id, String location, String rangerName, int animalId) {
+        String sql = "UPDATE sightings SET (location, rangerName, animalId) = (:location, :rangerName, :animalId);";
+        try(Connection con = DB.sql2o.open()) {
+            con.createQuery(sql)
+                    .addParameter("location",location)
+                    .addParameter("rangerName", rangerName)
+                    .addParameter("animalId", animalId)
+                    .executeUpdate();
+        } catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public static Sighting findById(int id) {
+        String sql = "SELECT * FROM sightings WHERE id = :id;";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Sighting.class);
         }
     }
 }
