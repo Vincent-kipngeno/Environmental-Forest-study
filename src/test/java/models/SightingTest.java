@@ -4,6 +4,9 @@ import dbRule.DatabaseRule;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 public class SightingTest {
@@ -65,6 +68,15 @@ public class SightingTest {
         secondSighting.save();
         assertEquals(true, Sighting.all().get(0).equals(firstSighting));
         assertEquals(true, Sighting.all().get(1).equals(secondSighting));
+    }
+
+    @Test
+    public void save_recordsTimeOfCreationInDatabase() {
+        Sighting testSighting = setNewSighting();
+        testSighting.save();
+        Timestamp savedSightingTime = Sighting.findById(testSighting.getId()).getCreatedAt();
+        Timestamp rightNow = new Timestamp(new Date().getTime());
+        assertEquals(rightNow.getDay(), savedSightingTime.getDay());
     }
 
     @Test
