@@ -27,7 +27,7 @@ public class SightingTest {
     @Test
     public void getAnimalId_newSightingInstantiatesCorrectlyWithAnimalId() {
         Sighting newSighting = setNewSighting();
-        assertEquals("1", newSighting.getAnimalId());
+        assertEquals(1, newSighting.getAnimalId());
     }
 
     private Sighting setNewSighting(){
