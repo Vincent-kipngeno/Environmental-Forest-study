@@ -1,14 +1,21 @@
 package models;
 
+
+import org.sql2o.Connection;
+import org.sql2o.Sql2oException;
+
+import java.util.List;
 import java.util.Objects;
 
 public class EndangeredAnimal extends Animal{
     private String health;
     private String age;
+    private static final String DATABASE_TYPE = "Endangered Animals";
     public EndangeredAnimal(String name, String health, String age) {
         super(name);
         this.health = health;
         this.age = age;
+        this.type = DATABASE_TYPE;
     }
 
     public String getHealth() {
@@ -32,5 +39,41 @@ public class EndangeredAnimal extends Animal{
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), health, age);
+    }
+
+    @Override
+    public void save() {
+        String sql = "INSERT INTO animals (type, name, health, age) VALUES (:type, :name, :health, :age);";
+        try(Connection con = DB.sql2o.open()) {
+           this.id = (int) con.createQuery(sql,true)
+                    .addParameter("name", this.name)
+                    .addParameter("health", this.health)
+                    .addParameter("age", this.age)
+                    .addParameter("type", this.type)
+                    .executeUpdate()
+                    .getKey();
+        }catch (Sql2oException ex) {
+            System.out.println(ex);
+        }
+    }
+
+    public static List<EndangeredAnimal> allEndangered() {
+        String sql = "SELECT * FROM animals WHERE type = :type;";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("type", DATABASE_TYPE)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(EndangeredAnimal.class);
+        }
+    }
+
+    public static EndangeredAnimal findById (int id) {
+        String sql = "SELECT * FROM animals WHERE id = :id;";
+        try (Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql)
+                    .addParameter("id", id)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetchFirst(EndangeredAnimal.class);
+        }
     }
 }
