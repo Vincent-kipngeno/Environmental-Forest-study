@@ -6,13 +6,13 @@
     <ul>
         {{#each sightings}}
             <li>
-                <p><a href="/endangered/{{animal.id}}/sightings/{{id}}">{{name}}</a></p>
+                <p><a href="/animals/{{animal.id}}/sightings/{{id}}">{{rangerName}}-{{location}}</a></p>
             </li>
         {{/each}}
     </ul>
     <div class="row">
-        <a class="btn btn-info" href="/endangered/{{animal.id}}/edit">Edit this animal</a>
-        <a class="btn btn-info"  href="/endangered/{{animal.id}}/delete">DELETE this animal</a>
+        <a class="btn btn-info" href="/animals/{{animal.id}}/edit">Edit this animal</a>
+        <a class="btn btn-info"  href="/animals/{{animal.id}}/delete">DELETE this animal</a>
     </div>
 {{/partial}}
 

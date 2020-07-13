@@ -78,5 +78,29 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //delete individual animal
+        get("/animals/:animalId/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            Animal.deleteById(idOfAnimal);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine() );
+
+        //delete individual endangered animal
+        get("/endangered/:animalId/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            EndangeredAnimal.deleteById(idOfAnimal);
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine() );
+
+        //delete all sightings
+        get("/sightings/delete", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            Sighting.clearAll();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine() );
     }
 }
