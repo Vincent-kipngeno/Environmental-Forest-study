@@ -21,7 +21,7 @@ public class App{
         port(getHerokuAssignedPort());
         staticFileLocation("/public");
 
-        //show all listed sightings and both endangered and non endangered animals
+        //get: show all listed sightings and both endangered and non endangered animals
         get("/", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Animal> animals = Animal.all();
@@ -33,13 +33,13 @@ public class App{
             return new ModelAndView(model, "index.hbs");
         }, new HandlebarsTemplateEngine() );
 
-        //show form to create a new animal
+        //get: show form to create a new animal
         get("/animals/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "Animal-form.hbs");
         }, new HandlebarsTemplateEngine() );
 
-        //process a form to create new animal
+        //post: process a form to create new animal
         post("/animals", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String animalName = req.queryParams("name");
@@ -49,13 +49,13 @@ public class App{
             return null;
         }, new HandlebarsTemplateEngine() );
 
-        //show form to create new endangered animal
+        //get: show form to create new endangered animal
         get("/endangered/new", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "Endangered-form.hbs");
         }, new HandlebarsTemplateEngine() );
 
-        //process a form to create new endangered animal
+        //post: process a form to create new endangered animal
         post("/endangered", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String endangeredName = req.queryParams("name");
@@ -67,7 +67,7 @@ public class App{
             return null;
         }, new HandlebarsTemplateEngine() );
 
-        //delete all animals and endangered animals and sightings
+        //get: delete all animals and endangered animals and sightings
         get("/animals/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             Animal.clearAll();
@@ -77,7 +77,7 @@ public class App{
             return null;
         }, new HandlebarsTemplateEngine() );
 
-        //delete individual animal
+        //get: delete individual animal
         get("/animals/:animalId/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
@@ -86,7 +86,7 @@ public class App{
             return null;
         }, new HandlebarsTemplateEngine() );
 
-        //delete individual endangered animal
+        //get: delete individual endangered animal
         get("/endangered/:animalId/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
@@ -95,12 +95,54 @@ public class App{
             return null;
         }, new HandlebarsTemplateEngine() );
 
-        //delete all sightings
+        //get: delete all sightings
         get("/sightings/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             Sighting.clearAll();
             res.redirect("/");
             return null;
         }, new HandlebarsTemplateEngine() );
+
+        //get an animal's details together with sightings reported
+        get("/animals/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            Animal foundAnimal = Animal.findById(idOfAnimal);
+            model.put("animal", foundAnimal);
+            List<Sighting> animalSightings = foundAnimal.findSightings();
+            model.put("sightings", animalSightings);
+            return new ModelAndView(model, "Animal-form.hbs");
+        }, new HandlebarsTemplateEngine() );
+
+        //get endangered animal's details together with sightings reported
+        get("/endangered/:id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimal);
+            model.put("animal", foundAnimal);
+            List<Sighting> animalSightings = foundAnimal.findSightings();
+            model.put("sightings", animalSightings);
+            return new ModelAndView(model, "Endangered-form.hbs");
+        }, new HandlebarsTemplateEngine() );
+
+        //get: show a form to update animal
+
+        //post: process form to update animal
+
+        //get: show a form to update endangered animal
+
+        //post: process form to update endangered animal
+
+        //get: delete individual sighting
+
+        //get: show a form to record new sighting
+
+        //post: process a form to record new sighting
+
+        //get individual sighting with its details
+
+        //get: show form to update a sighting
+
+        //post: process form to update a sighting
     }
 }
