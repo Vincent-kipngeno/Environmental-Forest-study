@@ -4,15 +4,15 @@
         <form class="form" action="/endangered/{{endangered.id}}" method="post">
             <div class="form-group">
                 <label for="name">Edit this endangered animal's name</label>
-                <input id="name" name="name" class="form-control" type="text" value="{{endangered.name}}">
+                <input id="name" name="name" class="form-control" type="text" value="{{editEndangered.name}}">
             </div>
             <div class="form-group">
                 <label for="health">Edit this endangered animal's health:</label>
-                <input id="health" name="health" class="form-control" type="text" value="{{endangered.health}}">
+                <input id="health" name="health" class="form-control" type="text" value="{{editEndangered.health}}">
             </div>
             <div class="form-group">
                 <label for="age">Edit this endangered animal's age:</label>
-                <input id="age" name="age" class="form-control" type="text" value="{{endangered.age}}">
+                <input id="age" name="age" class="form-control" type="text" value="{{editEndangered.age}}">
             </div>
             <button type="submit" class="btn btn-default">Go!</button>
         </form>
@@ -21,15 +21,15 @@
         <form class="form" action="/endangered" method="post">
             <div class="form-group">
                 <label for="name">Enter endangered animal's name</label>
-                <input id="name" name="name" class="form-control" type="text" value="{{endangered.name}}">
+                <input id="name" name="name" class="form-control" type="text" value="">
             </div>
             <div class="form-group">
                 <label for="health">Enter endangered animal's health:</label>
-                <input id="health" name="health" class="form-control" type="text" value="{{endangered.health}}">
+                <input id="health" name="health" class="form-control" type="text" value="">
             </div>
             <div class="form-group">
                 <label for="age">Enter endangered animal's age:</label>
-                <input id="age" name="age" class="form-control" type="text" value="{{endangered.age}}">
+                <input id="age" name="age" class="form-control" type="text" value="">
             </div>
             <button type="submit" class="btn btn-default">Go!</button>
         </form>
