@@ -1,0 +1,23 @@
+{{#partial "content"}}
+    <div style="color:purple; font-family:Serif">
+        <h1>{{endangered.name}}</h1>
+    </div>
+    <ul>
+        <li>health: {{endangered.health}}</li>
+        <li>age: {{endangered.age}}</li>
+    </ul>
+    <h4 style="color:green; font-family:Serif">Here are all the sightings listed in this endangered animal:</h4>
+    <ul>
+        {{#each sightings}}
+            <li>
+                <p><a href="/endangered/{{endangered.id}}/sightings/{{id}}">{{name}}</a></p>
+            </li>
+        {{/each}}
+    </ul>
+    <div class="row">
+        <a class="btn btn-info" href="/endangered/{{endangered.id}}/edit">Edit this animal</a>
+        <a class="btn btn-info"  href="/endangered/{{endangered.id}}/delete">DELETE this animal</a>
+    </div>
+{{/partial}}
+
+{{> layout.hbs}}
