@@ -1,7 +1,7 @@
 {{#partial "content"}}
     {{#if editAnimal}}
         <h1>Edit this animal!</h1>
-        <form class="form" action="/animals/animal/{{animal.id}}" method="post">
+        <form class="form" action="/animals/{{animal.id}}" method="post">
             <div class="form-group">
                 <label for="name">Edit this animal's name</label>
                 <input id="name" name="name" class="form-control" type="text" value="{{animal.name}}">
@@ -10,7 +10,7 @@
         </form>
     {{else}}
         <h1>Add a new animal!</h1>
-        <form class="form" action="/animals/animal" method="post">
+        <form class="form" action="/animals" method="post">
             <div class="form-group">
                 <label for="name">Enter animal's name</label>
                 <input id="name" name="name" class="form-control" type="text" value="{{animal.name}}">
