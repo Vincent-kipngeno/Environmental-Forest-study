@@ -258,7 +258,7 @@ public class App{
             model.put("animals", Animal.all());
             List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
             model.put("endangeredAnimals", endangeredAnimals);
-            return new ModelAndView(model, "Sighting-detail.hbs");
+            return new ModelAndView(model, "Sighting-details.hbs");
         }, new HandlebarsTemplateEngine());
 
         //get: show form to update a sighting
