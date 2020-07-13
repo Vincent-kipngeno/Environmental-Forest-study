@@ -243,6 +243,22 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //get individual sighting with its details
+        get("/animals/:animal_id/sightings/:sighting_id", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            int idOfSightingToFind = Integer.parseInt(req.params("sighting_id"));
+            Sighting foundSighting = Sighting.findById(idOfSightingToFind);
+            int idOfAnimalToFind = Integer.parseInt(req.params("animal_id"));
+            Animal foundAnimal = Animal.findById(idOfAnimalToFind);
+            EndangeredAnimal foundEndangeredAnimal = EndangeredAnimal.findById(idOfAnimalToFind);
+            model.put("animal", foundAnimal);
+            model.put("endangeredAnimal", foundEndangeredAnimal);
+            model.put("sighting", foundSighting);
+
+            model.put("animals", Animal.all());
+            List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
+            model.put("endangeredAnimals", endangeredAnimals);
+            return new ModelAndView(model, "Sighting-detail.hbs");
+        }, new HandlebarsTemplateEngine());
 
         //get: show form to update a sighting
 
