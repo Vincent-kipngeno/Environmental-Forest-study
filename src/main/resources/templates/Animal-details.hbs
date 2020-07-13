@@ -4,11 +4,15 @@
     </div>
     <h4 style="color:green; font-family:Serif">Here are all the sightings listed in this endangered animal:</h4>
     <ul>
-        {{#each sightings}}
-            <li>
-                <p><a href="/animals/{{animal.id}}/sightings/{{id}}">{{rangerName}}-{{location}}</a></p>
-            </li>
-        {{/each}}
+        {{#if animalSightings}}
+            {{#each animalSightings}}
+                <li>
+                    <p><a href="/animals/{{animal.id}}/sightings/{{id}}">{{rangerName}}-{{location}}</a></p>
+                </li>
+            {{/each}}
+        {{else}}
+            <p>No sightings yet</p>
+        {{/if}}
     </ul>
     <div class="row">
         <a class="btn btn-info" href="/animals/{{animal.id}}/edit">Edit this animal</a>

@@ -41,7 +41,7 @@
                         <ul class="dropdown-menu">
                             {{#if animals}}
                                 {{#each animals}}
-                                    <li><a href="/animals/{{id}}">{{name}}</a></li>
+                                    <li><a href="/animals/{{id}}">{{name}}{{id}}</a></li>
                                 {{/each}}
                                 <li><a href="/animals/new">Add an animal</a></li>
 
@@ -55,7 +55,7 @@
                         <ul class="dropdown-menu">
                             {{#if endangeredAnimals}}
                                 {{#each endangeredAnimals}}
-                                    <li><a href="/endangered/{{id}}">{{name}}</a></li>
+                                    <li><a href="/endangered/{{id}}">{{name}}{{id}}</a></li>
                                 {{/each}}
                                 <li><a href="/endangered/new">Add endangered animal</a></li>
 

@@ -69,10 +69,11 @@ public class Animal {
     }
 
     public static Animal findById (int id) {
-        String sql = "SELECT * FROM animals WHERE id = :id;";
+        String sql = "SELECT * FROM animals WHERE id = :id AND type = :type;";
         try (Connection con = DB.sql2o.open()){
             return con.createQuery(sql)
                     .addParameter("id", id)
+                    .addParameter("type", DATABASE_TYPE)
                     .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Animal.class);
         }

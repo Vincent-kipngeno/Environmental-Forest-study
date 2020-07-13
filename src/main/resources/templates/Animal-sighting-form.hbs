@@ -27,11 +27,11 @@
         <div style="color:purple; text-align:center;">
             <h2>Add a new Sighting!</h2>
         </div>
-        <form class="form" action="/animals/sightings" method="post">
+        <form class="form" action="/animalsighting" method="post">
             {{#if animals}}
                 <div class="form-group">
-                    <label for="rangerName">Enter ranger's name:</label>
-                    <input id="rangerName" name="rangerName" class="form-control" type="text" value="">
+                    <label for="name">Enter ranger's name:</label>
+                    <input id="name" name="name" class="form-control" type="text" value="">
                 </div>
                 <div class="form-group">
                     <label for="location">Enter location:</label>

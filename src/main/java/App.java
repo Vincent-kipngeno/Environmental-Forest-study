@@ -88,7 +88,7 @@ public class App{
         //get: delete individual animal
         get("/animals/:animalId/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            int idOfAnimal = Integer.parseInt(req.params("animalId"));
             Animal.deleteById(idOfAnimal);
             res.redirect("/");
             return null;
@@ -97,7 +97,7 @@ public class App{
         //get: delete individual endangered animal
         get("/endangered/:animalId/delete", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            int idOfAnimal = Integer.parseInt(req.params("animalId"));
             EndangeredAnimal.deleteById(idOfAnimal);
             res.redirect("/");
             return null;
@@ -114,37 +114,33 @@ public class App{
         //get an animal's details together with sightings reported
         get("/animals/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
-            Animal foundAnimal = Animal.findById(idOfAnimal);
+            int idOfAnimalToFind = Integer.parseInt(req.params("id"));
+            Animal foundAnimal = Animal.findById(idOfAnimalToFind);
             model.put("animal", foundAnimal);
-            List<Sighting> animalSightings = foundAnimal.findSightings();
-            model.put("sightings", animalSightings);
-            List<Animal> animals = Animal.all();
-            model.put("animals", animals);
-            List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
-            model.put("endangeredAnimals", endangeredAnimals);
+            List<Sighting> allSightingsByAnimal = foundAnimal.findSightings();
+            model.put("sightings", allSightingsByAnimal);
+            model.put("animals", Animal.all()); //refresh list of links for navbar
+            model.put("endangeredAnimals", EndangeredAnimal.allEndangered());
             return new ModelAndView(model, "Animal-details.hbs");
-        }, new HandlebarsTemplateEngine() );
+        }, new HandlebarsTemplateEngine());
 
         //get endangered animal's details together with sightings reported
         get("/endangered/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
-            EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimal);
+            int idOfAnimalToFind = Integer.parseInt(req.params("id"));
+            EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimalToFind);
             model.put("animal", foundAnimal);
-            List<Sighting> animalSightings = foundAnimal.findSightings();
-            model.put("sightings", animalSightings);
-            List<Animal> animals = Animal.all();
-            model.put("animals", animals);
-            List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
-            model.put("endangeredAnimals", endangeredAnimals);
+            List<Sighting> allSightingsByAnimal = foundAnimal.findSightings();
+            model.put("sightings", allSightingsByAnimal);
+            model.put("animals", Animal.all()); //refresh list of links for navbar
+            model.put("endangeredAnimals", EndangeredAnimal.allEndangered());
             return new ModelAndView(model, "Endangered-details.hbs");
         }, new HandlebarsTemplateEngine() );
 
         //get: show a form to update animal
         get("/animals/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            int idOfAnimal = Integer.parseInt(req.params("id"));
             Animal foundAnimal = Animal.findById(idOfAnimal);
             model.put("editAnimal", foundAnimal);
             List<Animal> animals = Animal.all();
@@ -158,7 +154,7 @@ public class App{
         post("/animals/:id", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String animalName = req.queryParams("name");
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            int idOfAnimal = Integer.parseInt(req.params("id"));
             Animal foundAnimal = Animal.findById(idOfAnimal);
             foundAnimal.update(animalName);
             res.redirect("/");
@@ -168,9 +164,9 @@ public class App{
         //get: show a form to update endangered animal
         get("/endangered/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            int idOfAnimal = Integer.parseInt(req.params("id"));
             EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimal);
-            model.put("editAnimal", foundAnimal);
+            model.put("editEndangered", foundAnimal);
             List<Animal> animals = Animal.all();
             model.put("animals", animals);
             List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
@@ -184,7 +180,7 @@ public class App{
             String animalName = req.queryParams("name");
             String animalHealth = req.queryParams("health");
             String animalAge = req.queryParams("age");
-            int idOfAnimal = Integer.parseInt(req.queryParams("id"));
+            int idOfAnimal = Integer.parseInt(req.params("id"));
             EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimal);
             foundAnimal.update(animalName, animalHealth, animalAge);
             res.redirect("/");
@@ -211,16 +207,18 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //post: process a form to record new sighting
-        post("/animals/sighting", (req, res) -> {
+        post("/animalsighting", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
-            String rangerName = req.queryParams("rangerName");
+            List<Animal> allAnimals = Animal.all();
+            model.put("animals", allAnimals);
+            String name = req.queryParams("name");
             String location = req.queryParams("location");
-            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
-            Sighting newSighting = new Sighting(location, rangerName, idOfAnimal);
+            int animalId = Integer.parseInt(req.queryParams("animalId"));
+            Sighting newSighting = new Sighting(name, location, animalId);
             newSighting.save();
             res.redirect("/");
             return null;
-        }, new HandlebarsTemplateEngine() );
+        }, new HandlebarsTemplateEngine());
 
         //get: show a form to record new animal sighting
         get("/endangered/sighting/new", (request, response) -> {
@@ -233,7 +231,7 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //post: process a form to record new sighting
-        post("/endangered/sighting", (req, res) -> {
+        post("/endangeredsighting", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             String rangerName = req.queryParams("rangerName");
             String location = req.queryParams("location");
