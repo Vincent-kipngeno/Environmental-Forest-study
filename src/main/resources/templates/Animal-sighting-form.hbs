@@ -6,11 +6,11 @@
         <form class="form" action="/animals/sightings/{{sighting.id}}" method="post">
             <div class="form-group">
                 <label for="rangerName">Edit ranger's name:</label>
-                <input id="rangerName" name="rangerName" class="form-control" type="text" value="{{sighting.rangerName}}">
+                <input id="rangerName" name="rangerName" class="form-control" type="text" value="{{editSighting.rangerName}}">
             </div>
             <div class="form-group">
                 <label for="location">Edit location:</label>
-                <input id="location" name="location" class="form-control" type="number" value="{{sighting.location}}">
+                <input id="location" name="location" class="form-control" type="number" value="{{editSighting.location}}">
             </div>
             <div class="form-group">
                 <label for="animalId">Update this sighting's animal:</label>
@@ -40,7 +40,7 @@
                 <div class="form-group">
                     <label for="animalId">Enter animal:</label>
                     <select id="animalId" name="animalId" class="form-control">
-                        {{#each endangeredAnimals}}
+                        {{#each animals}}
                             <option value="{{id}}">{{name}}</option>
                         {{/each}}
                     </select>

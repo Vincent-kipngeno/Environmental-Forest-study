@@ -192,10 +192,57 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //get: delete individual sighting
+        get("/animals/:animalId/sightings/id/delete", (req, res) -> {
+            int idOfSighting = Integer.parseInt(req.queryParams("id"));
+            Sighting sightingToDelete = Sighting.findById(idOfSighting);
+            Sighting.deleteById(idOfSighting);
+            res.redirect("/");
+            return null;
+        },new HandlebarsTemplateEngine() );
 
-        //get: show a form to record new sighting
+        //get: show a form to record new animal sighting
+        get("/animals/sighting/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Animal> animals = Animal.all();
+            model.put("animals", animals);
+            List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
+            model.put("endangeredAnimals", endangeredAnimals);
+            return new ModelAndView(model, "Animal-sighting-form.hbs");
+        }, new HandlebarsTemplateEngine() );
 
         //post: process a form to record new sighting
+        post("/animals/sighting", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String rangerName = req.queryParams("rangerName");
+            String location = req.queryParams("location");
+            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            Sighting newSighting = new Sighting(location, rangerName, idOfAnimal);
+            newSighting.save();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine() );
+
+        //get: show a form to record new animal sighting
+        get("/endangered/sighting/new", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            List<Animal> animals = Animal.all();
+            model.put("animals", animals);
+            List<EndangeredAnimal> endangeredAnimals = EndangeredAnimal.allEndangered();
+            model.put("endangeredAnimals", endangeredAnimals);
+            return new ModelAndView(model, "Endangered-sighting-form.hbs");
+        }, new HandlebarsTemplateEngine() );
+
+        //post: process a form to record new sighting
+        post("/endangered/sighting", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            String rangerName = req.queryParams("rangerName");
+            String location = req.queryParams("location");
+            int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
+            Sighting newSighting = new Sighting(location, rangerName, idOfAnimal);
+            newSighting.save();
+            res.redirect("/");
+            return null;
+        }, new HandlebarsTemplateEngine() );
 
         //get individual sighting with its details
 
