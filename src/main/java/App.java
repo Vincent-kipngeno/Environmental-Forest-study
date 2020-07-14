@@ -190,7 +190,7 @@ public class App{
 
         //get: delete individual sighting
         get("/animals/:animalId/sightings/:id/delete", (req, res) -> {
-            int idOfSighting = Integer.parseInt(req.queryParams("id"));
+            int idOfSighting = Integer.parseInt(req.params("id"));
             Sighting sightingToDelete = Sighting.findById(idOfSighting);
             Sighting.deleteById(idOfSighting);
             res.redirect("/");
