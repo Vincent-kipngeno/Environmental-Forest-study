@@ -83,6 +83,9 @@ public class Animal {
     }
 
     public  void update( String name){
+        if(name == null){
+            throw new NullPointerException("name cannot be null or empty");
+        }
         String sql = "UPDATE animals SET name = :name WHERE id = :id;";
         try(Connection con = DB.sql2o.open()){
             con.createQuery(sql)

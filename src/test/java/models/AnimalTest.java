@@ -68,6 +68,24 @@ public class AnimalTest {
         assertEquals(newAnimal, savedAnimal);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void update_throwsExceptionIfNameNull(){
+        Animal testAnimal = new Animal("Lion");
+        testAnimal.save();
+        testAnimal.update(null);
+    }
+
+    @Test
+    public void update_nameCannotBeNull(){
+        Animal testAnimal = new Animal("Lion");
+        testAnimal.save();
+        try {
+            testAnimal.update(null);
+            Animal updatedAnimal = Animal.findById(testAnimal.getId());
+            assertTrue(Animal.findById(testAnimal.getId()).equals(updatedAnimal));
+        } catch (NullPointerException exception){ System.out.println(exception);}
+    }
+
     @Test
     public void update_animalInstanceIsUpdatedCorrectly() {
         Animal newAnimal = setNewAnimal();
