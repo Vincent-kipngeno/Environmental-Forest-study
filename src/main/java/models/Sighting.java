@@ -55,6 +55,9 @@ public class Sighting {
     }
 
     public void save() {
+        if(this.location == null || this.rangerName == null){
+            throw new NullPointerException("location and ranger name cannot be null or empty");
+        }
         try(Connection con = DB.sql2o.open()) {
             String sql = "INSERT INTO sightings (location, rangerName, animalId, createdAt) VALUES (:location, :rangerName, :animalId, now());";
             this.id = (int) con.createQuery(sql, true)
@@ -77,6 +80,9 @@ public class Sighting {
     }
 
     public static void update(int id, String location, String rangerName, int animalId) {
+        if(location == null || rangerName == null ){
+            throw new NullPointerException("location and ranger name cannot be null or empty");
+        }
         String sql = "UPDATE sightings SET (location, rangerName, animalId) = (:location, :rangerName, :animalId) WHERE id=:id;";
         try(Connection con = DB.sql2o.open()) {
             con.createQuery(sql)

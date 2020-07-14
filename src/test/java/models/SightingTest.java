@@ -45,6 +45,21 @@ public class SightingTest {
         assertTrue( firstSighting.equals(secondSighting));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void save_throwsExceptionIfNameNull(){
+        Sighting testSighting = new Sighting( null, null, 1);
+        testSighting.save();
+    }
+
+    @Test
+    public void save_locationRangerNameCannotBeNull(){
+        Sighting newSighting = new Sighting(null, null, 1);;
+        try {
+            newSighting.save();
+            assertTrue(Sighting.all().get(0).equals(newSighting));
+        } catch (NullPointerException exception){ System.out.println(exception);}
+    }
+
     @Test
     public void save_sightingIsSavedCorrectlyOnEntry() {
         Sighting  firstSighting = setNewSighting();
@@ -77,6 +92,24 @@ public class SightingTest {
         Timestamp savedSightingTime = Sighting.findById(testSighting.getId()).getCreatedAt();
         Timestamp rightNow = new Timestamp(new Date().getTime());
         assertEquals(rightNow.getDay(), savedSightingTime.getDay());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void update_throwsExceptionIfNullLocationRangerName(){
+        Sighting newSighting = setNewSighting();
+        newSighting.save();
+        Sighting.update( newSighting.getId(), null, null, 1);
+    }
+
+    @Test
+    public void update_locationRangerNameCannotBeNull(){
+        Sighting newSighting = setNewSighting();
+        newSighting.save();
+        try {
+            Sighting.update( newSighting.getId(), null, null, 1);
+            Sighting updatedSighting = Sighting.findById(newSighting.getId());
+            assertEquals(false, newSighting.equals(updatedSighting));
+        } catch (NullPointerException exception){ System.out.println(exception);}
     }
 
     @Test
