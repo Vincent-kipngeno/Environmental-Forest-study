@@ -87,10 +87,7 @@
                 <configuration>
                     <jdkVersion>1.8</jdkVersion>
                     <!-- Change this to YOUR application name! -->
-                    <appName>wildlife-tracker</appName>
-                    <!--<processTypes>
-                        <web>java -jar target/wildlife-tracker-1.0-jar-with-dependencies.jar</web>
-                    </processTypes>-->
+                    <appName>wildlife-tracker-vince</appName>
                     <processTypes>
                         <web>java $JAVA_OPTS -cp target/classes:target/dependency/* App</web>
                     </processTypes>
@@ -99,4 +96,4 @@
         </plugins>
     </build>
 </project>
-        <!--postgresql-elliptical-90603  //   postgresql-sinuous-97658  -->
+        <!--postgresql-polished-15277  //   postgresql-rugged-77140  -->

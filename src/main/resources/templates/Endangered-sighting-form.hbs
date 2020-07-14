@@ -5,8 +5,8 @@
         </div>
         <form class="form" action="/endangeredsighting/{{editSighting.id}}" method="post">
             <div class="form-group">
-                <label for="rangerName">Edit ranger's name:</label>
-                <input id="rangerName" name="rangerName" class="form-control" type="text" value="{{sighting.rangerName}}">
+                <label for="name">Edit ranger's name:</label>
+                <input id="name" name="name" class="form-control" type="text" value="{{sighting.rangerName}}">
             </div>
             <div class="form-group">
                 <label for="location">Edit location:</label>
@@ -29,7 +29,7 @@
         </form>
     {{else}}
         <div style="color:purple; text-align:center;">
-            <h2>Add a new Hero!</h2>
+            <h2>Add a new Sighting!</h2>
         </div>
         <form class="form" action="/endangeredsighting" method="post">
             {{#if endangeredAnimals}}
