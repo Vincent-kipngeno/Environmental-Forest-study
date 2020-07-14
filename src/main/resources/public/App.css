@@ -8,6 +8,9 @@ html, body{
         color: white;
         background-blend-mode: multiply;
     }
+    .sight hr{
+        border-color: green;
+    }
     .btn{
         margin: 10px;
     }
