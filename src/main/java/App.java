@@ -165,9 +165,13 @@ public class App{
             String animalName = req.queryParams("name");
             int idOfAnimal = Integer.parseInt(req.params("id"));
             Animal foundAnimal = Animal.findById(idOfAnimal);
-            foundAnimal.update(animalName);
-            res.redirect("/");
-            return null;
+            try{
+                foundAnimal.update(animalName);
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine() );
 
         //get: show a form to update endangered animal
@@ -191,9 +195,13 @@ public class App{
             String animalAge = req.queryParams("age");
             int idOfAnimal = Integer.parseInt(req.params("id"));
             EndangeredAnimal foundAnimal = EndangeredAnimal.findById(idOfAnimal);
-            foundAnimal.update(animalName, animalHealth, animalAge);
-            res.redirect("/");
-            return null;
+            try{
+                foundAnimal.update(animalName, animalHealth, animalAge);
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine() );
 
         //get: delete individual sighting
@@ -224,9 +232,13 @@ public class App{
             String location = req.queryParams("location");
             int animalId = Integer.parseInt(req.queryParams("animalId"));
             Sighting newSighting = new Sighting(location, name, animalId);
-            newSighting.save();
-            res.redirect("/");
-            return null;
+            try{
+                newSighting.save();
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return  new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine());
 
         //get: show a form to record new endangered animal sighting
@@ -246,9 +258,13 @@ public class App{
             String location = req.queryParams("location");
             int idOfAnimal = Integer.parseInt(req.queryParams("animalId"));
             Sighting newSighting = new Sighting(location, rangerName, idOfAnimal);
-            newSighting.save();
-            res.redirect("/");
-            return null;
+            try{
+                newSighting.save();
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return  new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine() );
 
         //get individual sighting with its details
@@ -294,9 +310,13 @@ public class App{
             String location = req.queryParams("location");
             int animalId = Integer.parseInt(req.queryParams("animalId"));
             int idOfSightingToEdit = Integer.parseInt(req.params("id"));
-            Sighting.update(idOfSightingToEdit, location, name, animalId);
-            res.redirect("/");
-            return null;
+            try{
+                Sighting.update(idOfSightingToEdit, location, name, animalId);
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return  new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine());
 
         //get: show form to update a sighting of endangered animal
@@ -324,9 +344,13 @@ public class App{
             String location = req.queryParams("location");
             int animalId = Integer.parseInt(req.queryParams("animalId"));
             int idOfSightingToEdit = Integer.parseInt(req.params("id"));
-            Sighting.update(idOfSightingToEdit, location, name, animalId);
-            res.redirect("/");
-            return null;
+            try{
+                Sighting.update(idOfSightingToEdit, location, name, animalId);
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException ex) {
+                return  new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine());
     }
 }
