@@ -43,7 +43,7 @@ public class EndangeredAnimal extends Animal{
 
     @Override
     public void save() {
-        if(this.name == null || this.health == null || this.age == null){
+        if((this.name == null || this.name.trim().isEmpty()) || (this.health == null || this.health.trim().isEmpty()) || (this.age == null || this.age.trim().isEmpty())){
             throw new NullPointerException("name , health and age cannot be null or empty");
         }
         String sql = "INSERT INTO animals (type, name, health, age) VALUES (:type, :name, :health, :age);";

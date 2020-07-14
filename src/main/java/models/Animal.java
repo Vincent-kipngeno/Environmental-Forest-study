@@ -48,7 +48,7 @@ public class Animal {
     }
 
     public void save () {
-        if(this.name == null){
+        if( this.name == null || this.name.trim().isEmpty()){
             throw new NullPointerException("name cannot be null or empty");
         }
         String sql = "INSERT INTO animals (type, name) VALUES (:type, :name);";
@@ -83,7 +83,7 @@ public class Animal {
     }
 
     public  void update( String name){
-        if(name == null){
+        if( name == null || name.trim().isEmpty()){
             throw new NullPointerException("name cannot be null or empty");
         }
         String sql = "UPDATE animals SET name = :name WHERE id = :id;";

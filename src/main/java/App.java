@@ -49,9 +49,13 @@ public class App{
             Map<String, Object> model = new HashMap<>();
             String animalName = req.queryParams("name");
             Animal newAnimal = new Animal(animalName);
-            newAnimal.save();
-            res.redirect("/");
-            return null;
+            try{
+                newAnimal.save();
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException exception) {
+                return new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine() );
 
         //get: show form to create new endangered animal
@@ -71,9 +75,13 @@ public class App{
             String health = req.queryParams("health");
             String age = req.queryParams("age");
             EndangeredAnimal newEndangeredAnimal = new EndangeredAnimal(endangeredName, health, age);
-            newEndangeredAnimal.save();
-            res.redirect("/");
-            return null;
+            try{
+                newEndangeredAnimal.save();
+                res.redirect("/");
+                return null;
+            } catch (NullPointerException exception) {
+                return new ModelAndView(model, "exceptions.hbs");
+            }
         }, new HandlebarsTemplateEngine() );
 
         //get: delete all animals and endangered animals and sightings
