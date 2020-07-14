@@ -48,6 +48,9 @@ public class Animal {
     }
 
     public void save () {
+        if(this.name == null){
+            throw new NullPointerException("name cannot be null or empty");
+        }
         String sql = "INSERT INTO animals (type, name) VALUES (:type, :name);";
         try(Connection con = DB.sql2o.open()){
             this.id = (int) con.createQuery(sql, true)
