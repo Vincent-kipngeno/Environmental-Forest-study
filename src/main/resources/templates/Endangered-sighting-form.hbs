@@ -3,14 +3,14 @@
         <div style="color:purple; text-align: center;">
             <h1>Edit this Sighting!</h1>
         </div>
-        <form class="form" action="/endangeredsightings/{{sighting.id}}" method="post">
+        <form class="form" action="/endangeredsighting/{{editSighting.id}}" method="post">
             <div class="form-group">
                 <label for="rangerName">Edit ranger's name:</label>
                 <input id="rangerName" name="rangerName" class="form-control" type="text" value="{{sighting.rangerName}}">
             </div>
             <div class="form-group">
                 <label for="location">Edit location:</label>
-                <input id="location" name="location" class="form-control" type="number" value="{{sighting.location}}">
+                <input id="location" name="location" class="form-control" type="text" value="{{sighting.location}}">
             </div>
             <div class="form-group">
                 <label for="animalId">Update this sighting's animal:</label>

@@ -3,7 +3,7 @@
         <div style="color:purple; text-align: center;">
             <h1>Edit this Sighting!</h1>
         </div>
-        <form class="form" action="/animalsightings/{{sighting.id}}" method="post">
+        <form class="form" action="/animalsighting/{{editSighting.id}}" method="post">
             <div class="form-group">
                 <label for="rangerName">Edit ranger's name:</label>
                 <input id="rangerName" name="rangerName" class="form-control" type="text" value="{{editSighting.rangerName}}">
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="location">Enter location:</label>
-                    <input id="location" name="location" class="form-control" type="number" value="">
+                    <input id="location" name="location" class="form-control" type="text" value="">
                 </div>
                 <div class="form-group">
                     <label for="animalId">Enter animal:</label>

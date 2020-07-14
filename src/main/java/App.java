@@ -189,7 +189,7 @@ public class App{
         }, new HandlebarsTemplateEngine() );
 
         //get: delete individual sighting
-        get("/animals/:animalId/sightings/id/delete", (req, res) -> {
+        get("/animals/:animalId/sightings/:id/delete", (req, res) -> {
             int idOfSighting = Integer.parseInt(req.queryParams("id"));
             Sighting sightingToDelete = Sighting.findById(idOfSighting);
             Sighting.deleteById(idOfSighting);
@@ -252,7 +252,7 @@ public class App{
             Animal foundAnimal = Animal.findById(idOfAnimalToFind);
             EndangeredAnimal foundEndangeredAnimal = EndangeredAnimal.findById(idOfAnimalToFind);
             model.put("animal", foundAnimal);
-            model.put("endangeredAnimal", foundEndangeredAnimal);
+            model.put("endangered", foundEndangeredAnimal);
             model.put("sighting", foundSighting);
 
             model.put("animals", Animal.all());
