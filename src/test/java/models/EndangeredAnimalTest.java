@@ -52,6 +52,21 @@ public class EndangeredAnimalTest {
         assertEquals(true, EndangeredAnimal.allEndangered().get(0).equals(firstEndangeredAnimal));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void save_throwsExceptionIfNameNull(){
+        EndangeredAnimal testAnimal = new EndangeredAnimal(null, null, null);
+        testAnimal.save();
+    }
+
+    @Test
+    public void save_nameCannotBeNull(){
+        EndangeredAnimal testAnimal = new EndangeredAnimal(null, null, null);
+        try {
+            testAnimal.save();
+            assertTrue(EndangeredAnimal.findById(testAnimal.getId()).equals(testAnimal));
+        } catch (NullPointerException exception){ System.out.println(exception);}
+    }
+
     @Test
     public void save_assignsIdToEndangeredAnimal() {
         EndangeredAnimal  firstEndangeredAnimal = setNewEndangeredAnimal();
@@ -105,6 +120,25 @@ public class EndangeredAnimalTest {
         EndangeredAnimal updatedEndangeredAnimal = EndangeredAnimal.findById(newEndangeredAnimal.getId());
         assertEquals(false, newEndangeredAnimal.equals(updatedEndangeredAnimal));
     }
+
+    @Test(expected = NullPointerException.class)
+    public void update_throwsExceptionIfNameNull(){
+        EndangeredAnimal testAnimal = new EndangeredAnimal("Lion", "okay", "old");
+        testAnimal.save();
+        testAnimal.update(null, null, null);
+    }
+
+    @Test
+    public void update_nameCannotBeNull(){
+        EndangeredAnimal testAnimal = new EndangeredAnimal("Lion", "okay", "old");
+        testAnimal.save();
+        try {
+            testAnimal.update(null, null, null);
+            EndangeredAnimal updatedAnimal = EndangeredAnimal.findById(testAnimal.getId());
+            assertTrue(EndangeredAnimal.findById(testAnimal.getId()).equals(updatedAnimal));
+        } catch (NullPointerException exception){ System.out.println(exception);}
+    }
+
     @Test
     public  void findSightings_sightingsRelatedToAnimalInstanceCanBeFound() {
         Animal firstAnimal = setNewEndangeredAnimal();
