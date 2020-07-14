@@ -215,7 +215,7 @@ public class App{
             String name = req.queryParams("name");
             String location = req.queryParams("location");
             int animalId = Integer.parseInt(req.queryParams("animalId"));
-            Sighting newSighting = new Sighting(name, location, animalId);
+            Sighting newSighting = new Sighting(location, name, animalId);
             newSighting.save();
             res.redirect("/");
             return null;
