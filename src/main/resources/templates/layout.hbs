@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{#block "title"}}Blog{{/block}}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -32,8 +35,8 @@
                     <li class="dropdown">
                         <a style = "color: white" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Add sighting<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a  href="/endangered/sighting/new">Add new endangered sighting</a></li>
-                            <li><a  href="/animals/sighting/new">Add new animal sighting</a></li>
+                            <li><a style="color: orange;" href="/endangered/sighting/new">Add new endangered sighting</a></li>
+                            <li><a style="color: orange;" href="/animals/sighting/new">Add new animal sighting</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -41,12 +44,12 @@
                         <ul class="dropdown-menu">
                             {{#if animals}}
                                 {{#each animals}}
-                                    <li><a href="/animals/{{id}}">{{name}}{{id}}</a></li>
+                                    <li><a style="color: orange;" href="/animals/{{id}}">{{name}}{{id}}</a></li>
                                 {{/each}}
-                                <li><a href="/animals/new">Add an animal</a></li>
+                                <li><a style="color: orange;" href="/animals/new">Add an animal</a></li>
 
                             {{else}}
-                                <li><a href="/animals/new">Add an animal</a></li>
+                                <li><a style="color: orange;" href="/animals/new">Add an animal</a></li>
                             {{/if}}
                         </ul>
                     </li>
@@ -55,12 +58,12 @@
                         <ul class="dropdown-menu">
                             {{#if endangeredAnimals}}
                                 {{#each endangeredAnimals}}
-                                    <li><a href="/endangered/{{id}}">{{name}}{{id}}</a></li>
+                                    <li><a style="color: orange;" href="/endangered/{{id}}">{{name}}{{id}}</a></li>
                                 {{/each}}
-                                <li><a href="/endangered/new">Add endangered animal</a></li>
+                                <li><a style="color: orange;" href="/endangered/new">Add endangered animal</a></li>
 
                             {{else}}
-                                <li><a href="/endangered/new">Add endangered animal</a></li>
+                                <li><a style="color: orange;" href="/endangered/new">Add endangered animal</a></li>
                             {{/if}}
                         </ul>
                     </li>
